@@ -1,17 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {Container, Item} from 'semantic-ui-react'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email} = props
+  const {user} = props
 
   return (
-    <div>
-      <h3>Welcome, {email}</h3>
-    </div>
+    <Container>
+      <Item.Group>
+        <Item>
+          <Item.Image size='small' src='default-user.jpeg' />
+          <Item.Content verticalAlign='middle'>
+            <Item.Header>Welcome, {user.email}</Item.Header>
+            <Item.Meta>Collector since: 2018</Item.Meta>
+          </Item.Content>
+        </Item>
+      </Item.Group>
+    </Container>
   )
 }
 
@@ -20,7 +29,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
-    email: state.user.email
+    user: state.user
   }
 }
 
