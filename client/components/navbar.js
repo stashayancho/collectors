@@ -7,7 +7,7 @@ import {Menu, Header, Icon} from 'semantic-ui-react'
 
 const Navbar = ({handleClick, isLoggedIn, userId}) => (
   <Menu>
-    <Menu.Item><Header as={Link} to="/cars"><Icon name='fire' />Collectors</Header> </Menu.Item>
+    <Menu.Item><Header as={Link} to="/cars"><Icon name='fire' />HotCollect</Header> </Menu.Item>
     {isLoggedIn ? (
       <Menu.Menu position='right'>
         <Menu.Item name='My Profile' as={Link} to="/home" />

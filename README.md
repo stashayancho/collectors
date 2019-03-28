@@ -17,7 +17,6 @@ npm install
 
 * Create two postgres databases: `collectors` and `collectors-test`
   * To seed the database, run `python scraping/scrape.py`
-  * By default, running `npm test` will use `collectors-test`, while regular development uses `collectors`
 * Create a file called `secrets.js` in the project root
 
   ```
