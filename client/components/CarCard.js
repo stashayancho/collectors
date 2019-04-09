@@ -7,7 +7,6 @@ const CarCard = props => {
 
   const userId = props.user.id
   const car = props.car
-  console.log('car', car)
   return (
     <Card color="orange">
       <Card.Content>

@@ -22,7 +22,7 @@ const getUser = user => ({ type: GET_USER, user })
 const removeUser = () => ({ type: REMOVE_USER })
 const gotUserCars = cars => ({ type: GOT_USER_CARS, cars })
 const addedToCollection = car => ({ type: ADDED_TO_COLLECTION, car })
-const removedFromCollection = car => ({ type: REMOVED_FROM_COLLECTION, car })
+const removedFromCollection = carId => ({ type: REMOVED_FROM_COLLECTION, carId })
 
 /**
  * THUNK CREATORS
@@ -103,7 +103,7 @@ export default function(state = defaultUser, action) {
     case ADDED_TO_COLLECTION:
       return {...state, cars: [...state.cars, action.car]}
     case REMOVED_FROM_COLLECTION:
-      return {...state, cars: state.cars.filter(car => car !== action.car)}
+      return {...state, cars: state.cars.filter(car => car.car_id !== action.carId)}
     default:
       return state
   }

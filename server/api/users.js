@@ -35,10 +35,8 @@ router.post('/:userId/cars', async (req, res, next) => {
 
 router.delete('/:userId/cars/:carId', async (req, res, next) => {
   try {
-    console.log('car Id', req.body.car_id)
-    console.log('userId', req.params.userId)
     await userCars.destroy({where: {carId: req.params.carId, userId: `${req.params.userId}`}})
-    res.sendStatus(204)
+    res.json(Number(req.params.carId))
   } catch (err) {
     next(err)
   }
