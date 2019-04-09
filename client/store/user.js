@@ -8,6 +8,7 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const GOT_USER_CARS = 'GOT_USER_CARS'
 const ADDED_TO_COLLECTION = 'ADD_TO_COLLECTION'
+const REMOVED_FROM_COLLECTION = 'REMOVED_FROM_COLLECTION'
 
 /**
  * INITIAL STATE
@@ -17,10 +18,11 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
-const gotUserCars = cars => ({type: GOT_USER_CARS, cars})
-const addedToCollection = car => ({type: ADDED_TO_COLLECTION, car})
+const getUser = user => ({ type: GET_USER, user })
+const removeUser = () => ({ type: REMOVE_USER })
+const gotUserCars = cars => ({ type: GOT_USER_CARS, cars })
+const addedToCollection = car => ({ type: ADDED_TO_COLLECTION, car })
+const removedFromCollection = car => ({ type: REMOVED_FROM_COLLECTION, car })
 
 /**
  * THUNK CREATORS
@@ -71,8 +73,17 @@ export const getUserCars = userId => async dispatch => {
 
 export const addToCollection = (car, userId) => async dispatch => {
   try {
-    const  { data } = await axios.post(`/api/users/${userId}/cars`, car)
+    const { data } = await axios.post(`/api/users/${userId}/cars`, car)
     dispatch(addedToCollection(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const removeFromCollection = (car, userId) => async dispatch => {
+  try {
+    const { data } = await axios.delete(`/api/users/${userId}/cars/${car.car_id}`)
+    dispatch(removedFromCollection(data))
   } catch (err) {
     console.error(err)
   }
@@ -91,6 +102,8 @@ export default function(state = defaultUser, action) {
       return {...state, cars: action.cars}
     case ADDED_TO_COLLECTION:
       return {...state, cars: [...state.cars, action.car]}
+    case REMOVED_FROM_COLLECTION:
+      return {...state, cars: state.cars.filter(car => car !== action.car)}
     default:
       return state
   }

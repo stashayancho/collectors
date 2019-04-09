@@ -15,7 +15,7 @@ class CarCatalog extends React.Component {
       <Container>
         {cars ?
           <Card.Group>
-            {cars.map(car => <CarCard car={car} key={car.car_id}/>)}
+            {cars.map(car => <CarCard car={car} key={car.car_id} button='add' />)}
           </Card.Group>
         : <Header>no cars here</Header>}
       </Container>

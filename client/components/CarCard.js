@@ -1,12 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Card, Button, Image} from 'semantic-ui-react'
-import {addToCollection} from '../store/user'
+import { connect } from 'react-redux'
+import { Card, Button, Image } from 'semantic-ui-react'
+import { addToCollection, removeFromCollection } from '../store/user'
 
 const CarCard = props => {
 
   const userId = props.user.id
   const car = props.car
+  console.log('car', car)
   return (
     <Card color="orange">
       <Card.Content>
@@ -14,7 +15,10 @@ const CarCard = props => {
         <Card.Header floated='center'>{car.model_name}</Card.Header>
         <Card.Meta>{car.series}</Card.Meta>
         <Card.Content extra>
-          <Button onClick={() => props.addToCollection(car, userId)}>Add to my Collection</Button>
+          { props.button === 'add'
+            ? <Button onClick={() => props.addToCollection(car, userId)}>Add to my Collection</Button>
+            : <Button onClick={() => props.removeFromCollection(car, userId)}>Remove from my Collection</Button>
+          }
         </Card.Content>
       </Card.Content>
     </Card>
@@ -26,7 +30,8 @@ const mapState = state => ({
 })
 
 const mapDispatch = dispatch => ({
-  addToCollection : (car, userId) => dispatch(addToCollection(car, userId))
+  addToCollection: (car, userId) => dispatch(addToCollection(car, userId)),
+  removeFromCollection: (car, userId) => dispatch(removeFromCollection(car, userId))
 })
 
 export default connect(mapState, mapDispatch)(CarCard)
